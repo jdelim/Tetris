@@ -25,20 +25,20 @@ public class Tetris
     private int[] DestroyedRows;
     public Tetris()
     {
-        // TODO: finish constructor
-        Tetris()
+        for(int row = 0; row<20; row++)
         {
-            for(int row = 0; row<20; row++)
+            for(int col = 0; col<10; col++)
             {
-                for(int col = 0; col<10; col++)
-                {
-                    Board[col, row].isActive = false;
-                }
+                Board[col, row].isActive = false;
             }
-            DestroyedRows = new int[0];
         }
+        DestroyedRows = new int[0];
     }
     // TODO: create method to place blocks
+    public void Move(int x, int y, TetrominoType aColor)
+    {
+        Board[x, y] = new Block(aColor);
+    }
 
     // TODO: create method to detect a line of blocks
     bool DetectfullLineForOneLine(int row)
@@ -75,7 +75,27 @@ public class Tetris
 
     // TODO: create method which clears a line
 
+    public void ClearLine(int row)
+    {
+        for(int i = 0; i < 10; i++)
+        {
+            Board[i, row] = false;
+        }
+    }
+
     // TODO: create method which destroys full rows
+    public void RowCLear(int row)
+    {
+        if(DetectfullLineForOneLine == true)
+        {
+            for (int i = 10; i < 10; i++)
+            {
+                Board[i, row] = new Block();
+            }
+        }
+    }
+
+
 
     // TODO: create a method which moves board down after blocks destroyed
 

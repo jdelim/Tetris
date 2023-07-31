@@ -25,9 +25,21 @@ public class Tetris
     private int[] DestroyedRows;
     public Tetris()
     {
-        // TODO: finish constructor
+        for(int row = 0; row<20; row++)
+        {
+            for(int col = 0; col<10; col++)
+            {
+                Board[col, row].isActive = false;
+            }
+        }
+        DestroyedRows = new int[0];
     }
+
     // TODO: create method to place blocks
+    public void Move(int x, int y, TetrominoType aColor)
+    {
+        Board[x, y] = new Block(aColor);
+    }
 
     // TODO: create method to detect a line of blocks
     bool DetectfullLineForOneLine(int row)
@@ -41,6 +53,7 @@ public class Tetris
         }
         return true;
     }
+    //TODO: Check Board for full line
     void CheckBoard() 
     {
         List<int> ToBeDestroyed = new List<int>();
@@ -53,27 +66,21 @@ public class Tetris
         }
         DestroyedRows = ToBeDestroyed.ToArray();
     }
+    //TODO: Destroy all rows that are full
     void AllClear() 
     { 
         for (int i = 0; i<DestroyedRows.Length; i++ ) 
         {
-            ClearRow(DestroyedRows[i]);
+            RowClear(DestroyedRows[i]);
         }
     }
-    // TODO: create method which checks the board 
 
     // TODO: create method which clears a line
-
-    // TODO: create method which destroys full rows
-    public int RowCLear(int row)
+    public void RowClear(int row)
     {
-        if(DetectfullLineForOneLine == true)
+        for (int i = 0; i < 10; i++)
         {
-            for (int i = 10; i < 10; i++)
-            {
-                Board[i, row] = new Block();
-                return i
-            }
+            Board[i, row] = new Block();
         }
     }
 
@@ -89,4 +96,11 @@ public class Tetris
         }
     }
     // TODO: create a method which updates the board
+    void UpdateBoard() 
+    {
+        for (int row = 0; row < 20; row++)
+        {
+            MoveDown(row);
+        }
+    }
 }

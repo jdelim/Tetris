@@ -100,4 +100,11 @@ public class Tetris
     // TODO: create a method which moves board down after blocks destroyed
 
     // TODO: create a method which updates the board
+    void UpdateBoard() 
+    {
+        for (int row = 0; row < 20; row++)
+        {
+            MoveDown(row);
+        }
+    }
 }

@@ -18,6 +18,10 @@ public class Tetris
     {
         // TODO: finish constructor
     }
+    public bool CheckRow(int row) 
+    {
+    
+    }
     // TODO: create method to place blocks
 
     // TODO: create method to detect a line of blocks

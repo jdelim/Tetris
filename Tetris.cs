@@ -65,6 +65,16 @@ public class Tetris
     // TODO: create method which clears a line
 
     // TODO: create method which destroys full rows
+    public void RowCLear(int row)
+    {
+        if(DetectfullLineForOneLine == true)
+        {
+            for (int i = 10; i < 10; i++)
+            {
+                Board[i, row] = new Block();
+            }
+        }
+    }
 
     // TODO: create a method which moves board down after blocks destroyed
 

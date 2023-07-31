@@ -25,7 +25,14 @@ public class Tetris
     private int[] DestroyedRows;
     public Tetris()
     {
-        
+        for(int row = 0; row<20; row++)
+        {
+            for(int col = 0; col<10; col++)
+            {
+                Board[col, row].isActive = false;
+            }
+        }
+        DestroyedRows = new int[0];
     }
     // TODO: create method to place blocks
     public void Move(int x, int y, TetrominoType aColor)

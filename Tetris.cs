@@ -53,8 +53,7 @@ public class Tetris
         }
         return true;
     }
-
-    // TODO: create method which checks the board 
+    //TODO: Check Board for full line
     void CheckBoard() 
     {
         List<int> ToBeDestroyed = new List<int>();
@@ -67,8 +66,7 @@ public class Tetris
         }
         DestroyedRows = ToBeDestroyed.ToArray();
     }
-
-    // TODO: create method which destroys full rows
+    //TODO: Destroy all rows that are full
     void AllClear() 
     { 
         for (int i = 0; i<DestroyedRows.Length; i++ ) 
@@ -80,19 +78,23 @@ public class Tetris
     // TODO: create method which clears a line
     public void RowClear(int row)
     {
-        if(DetectfullLineForOneLine == true)
+        for (int i = 0; i < 10; i++)
         {
-            for (int i = 10; i < 10; i++)
-            {
-                Board[i, row] = new Block();
-            }
+            Board[i, row] = new Block();
         }
     }
 
-
-
     // TODO: create a method which moves board down after blocks destroyed
-
+    public void MoveDown(int row)
+    {
+        int fallcount = 0;
+        foreach(int given in DestroyedRows) if(row > given) fallcount++;
+        for(int i = 0; i < 10; i++)
+        {
+            Block[i, row - fallcount] = Block[i, row];
+            Block[i, row] = new Block();
+        }
+    }
     // TODO: create a method which updates the board
     void UpdateBoard() 
     {

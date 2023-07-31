@@ -9,6 +9,15 @@ public class Block
     public TetrominoType color;
     public bool isActive { get { return active; } }
     public bool makeActive { set { active = value; } }
+    public Block()
+    {
+        active = false;
+    }
+    public Block(TetrominoType current)
+    {
+        active = true;
+        color = current;
+    }
 }
 public class Tetris
 {
@@ -32,7 +41,7 @@ public class Tetris
         }
         return true;
     }
-    void DetectFullLine() 
+    void CheckBoard() 
     {
         List<int> ToBeDestroyed = new List<int>();
         for(int i = 0; i<20; i++)
@@ -44,7 +53,13 @@ public class Tetris
         }
         DestroyedRows = ToBeDestroyed.ToArray();
     }
-
+    void AllClear() 
+    { 
+        for (int i = 0; i<DestroyedRows.Length; i++ ) 
+        {
+            ClearRow(DestroyedRows[i]);
+        }
+    }
     // TODO: create method which checks the board 
 
     // TODO: create method which clears a line

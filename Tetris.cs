@@ -9,6 +9,15 @@ public class Block
     public TetrominoType color;
     public bool isActive { get { return active; } }
     public bool makeActive { set { active = value; } }
+    public Block()
+    {
+        active = false;
+    }
+    public Block(TetrominoType current)
+    {
+        active = true;
+        color = current;
+    }
 }
 public class Tetris
 {
@@ -16,13 +25,17 @@ public class Tetris
     private int[] DestroyedRows;
     public Tetris()
     {
-        // TODO: finish constructor
+        
     }
     public bool CheckRow(int row) 
     {
     
     }
     // TODO: create method to place blocks
+    public void Move(int x, int y, TetrominoType aColor)
+    {
+        Board[x, y] = new Block(aColor);
+    }
 
     // TODO: create method to detect a line of blocks
     bool DetectfullLineForOneLine(int row)
@@ -36,7 +49,7 @@ public class Tetris
         }
         return true;
     }
-    void DetectFullLine() 
+    void CheckBoard() 
     {
         List<int> ToBeDestroyed = new List<int>();
         for(int i = 0; i<20; i++)
@@ -48,12 +61,38 @@ public class Tetris
         }
         DestroyedRows = ToBeDestroyed.ToArray();
     }
-
+    void AllClear() 
+    { 
+        for (int i = 0; i<DestroyedRows.Length; i++ ) 
+        {
+            ClearRow(DestroyedRows[i]);
+        }
+    }
     // TODO: create method which checks the board 
 
     // TODO: create method which clears a line
 
+    public void ClearLine(int row)
+    {
+        for(int i = 0; i < 10; i++)
+        {
+            Board[i, row] = false;
+        }
+    }
+
     // TODO: create method which destroys full rows
+    public void RowCLear(int row)
+    {
+        if(DetectfullLineForOneLine == true)
+        {
+            for (int i = 10; i < 10; i++)
+            {
+                Board[i, row] = new Block();
+            }
+        }
+    }
+
+
 
     // TODO: create a method which moves board down after blocks destroyed
 

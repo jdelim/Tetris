@@ -34,6 +34,7 @@ public class Tetris
         }
         DestroyedRows = new int[0];
     }
+
     // TODO: create method to place blocks
     public void Move(int x, int y, TetrominoType aColor)
     {
@@ -52,6 +53,8 @@ public class Tetris
         }
         return true;
     }
+
+    // TODO: create method which checks the board 
     void CheckBoard() 
     {
         List<int> ToBeDestroyed = new List<int>();
@@ -64,27 +67,18 @@ public class Tetris
         }
         DestroyedRows = ToBeDestroyed.ToArray();
     }
+
+    // TODO: create method which destroys full rows
     void AllClear() 
     { 
         for (int i = 0; i<DestroyedRows.Length; i++ ) 
         {
-            ClearRow(DestroyedRows[i]);
+            RowClear(DestroyedRows[i]);
         }
     }
-    // TODO: create method which checks the board 
 
     // TODO: create method which clears a line
-
-    public void ClearLine(int row)
-    {
-        for(int i = 0; i < 10; i++)
-        {
-            Board[i, row] = false;
-        }
-    }
-
-    // TODO: create method which destroys full rows
-    public void RowCLear(int row)
+    public void RowClear(int row)
     {
         if(DetectfullLineForOneLine == true)
         {

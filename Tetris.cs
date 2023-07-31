@@ -65,26 +65,28 @@ public class Tetris
     // TODO: create method which clears a line
 
     // TODO: create method which destroys full rows
-<<<<<<< HEAD
     public int RowCLear(int row)
-=======
-    public void RowCLear(int row)
->>>>>>> master
     {
         if(DetectfullLineForOneLine == true)
         {
             for (int i = 10; i < 10; i++)
             {
                 Board[i, row] = new Block();
-<<<<<<< HEAD
                 return i
-=======
->>>>>>> master
             }
         }
     }
 
     // TODO: create a method which moves board down after blocks destroyed
-    public void MoveDown()
+    public void MoveDown(int row)
+    {
+        int fallcount = 0;
+        foreach(int given in DestroyedRows) if(row > given) fallcount++;
+        for(int i = 0; i < 10; i++)
+        {
+            Block[i, row - fallcount] = Block[i, row];
+            Block[i, row] = new Block();
+        }
+    }
     // TODO: create a method which updates the board
 }

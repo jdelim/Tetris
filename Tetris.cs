@@ -27,6 +27,13 @@ public class Tetris
     // TODO: create method which clears a line
 
     // TODO: create method which destroys full rows
+    public void DestroyFullLine()
+    {
+        if(FullLine == true)
+        {
+            set(placeBlock = space.empty);
+        }
+    }
 
     // TODO: create a method which moves board down after blocks destroyed
 

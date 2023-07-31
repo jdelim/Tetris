@@ -44,7 +44,13 @@ public class Tetris
         }
         DestroyedRows = ToBeDestroyed.ToArray();
     }
-
+    void AllClear() 
+    { 
+        for (int i = 0; i<DestroyedRows.Length; i++ ) 
+        {
+            ClearRow(DestroyedRows[i]);
+        }
+    }
     // TODO: create method which checks the board 
 
     // TODO: create method which clears a line

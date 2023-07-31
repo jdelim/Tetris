@@ -49,7 +49,17 @@ public class Tetris
 
     // TODO: create method which clears a line
 
+    public void ClearLine(int row)
+    {
+        for(int i = 0; i < 10; i++)
+        {
+            Board[i, row] = false;
+        }
+    }
+
     // TODO: create method which destroys full rows
+
+
 
     // TODO: create a method which moves board down after blocks destroyed
 

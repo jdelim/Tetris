@@ -41,7 +41,7 @@ public class Tetris
         }
         return true;
     }
-    void DetectFullLine() 
+    void CheckBoard() 
     {
         List<int> ToBeDestroyed = new List<int>();
         for(int i = 0; i<20; i++)

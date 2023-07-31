@@ -25,9 +25,13 @@ public class Tetris
     private int[] DestroyedRows;
     public Tetris()
     {
-        // TODO: finish constructor
+        
     }
     // TODO: create method to place blocks
+    public void Move(int x, int y, TetrominoType aColor)
+    {
+        Board[x, y] = new Block(aColor);
+    }
 
     // TODO: create method to detect a line of blocks
     bool DetectfullLineForOneLine(int row)

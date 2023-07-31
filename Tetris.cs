@@ -1,9 +1,19 @@
 using System.Collections.Generic;
+public enum TetrominoType
+{
+    Line, T, L, ReverseL, S, Z, Square
+}
+public class Block
+{
+    private bool active;
+    public TetrominoType color;
+    public bool isActive { get { return active; } }
+    public bool makeActive { set { active = value; } }
+}
 public class Tetris
 {
-    bool[,] Board;
-    int[] DestroyedRows;
-
+    public Block[,] Board;
+    private int[] DestroyedRows;
     public Tetris()
     {
         // TODO: finish constructor

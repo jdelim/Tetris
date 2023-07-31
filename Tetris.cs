@@ -61,7 +61,7 @@ public class Tetris
     { 
         for (int i = 0; i<DestroyedRows.Length; i++ ) 
         {
-            ClearRow(DestroyedRows[i]);
+            RowClear(DestroyedRows[i]);
         }
     }
     // TODO: create method which checks the board 
@@ -69,7 +69,7 @@ public class Tetris
     // TODO: create method which clears a line
 
     // TODO: create method which destroys full rows
-    public void RowCLear(int row)
+    public void RowClear(int row)
     {
         if(DetectfullLineForOneLine == true)
         {

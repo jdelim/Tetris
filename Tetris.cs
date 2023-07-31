@@ -25,6 +25,29 @@ public class Tetris
     // TODO: create method to place blocks
 
     // TODO: create method to detect a line of blocks
+    bool DetectfullLineForOneLine(int row)
+    {
+        for (int i = 0; i < 10; i++)
+        {
+            if (!Board[i, row].isActive)
+            {
+                return false
+            }
+        }
+        return true;
+    }
+    void DetectFullLine() 
+    {
+        List<int> ToBeDestroyed = new List<int>();
+        for(int i = 0; i<20; i++)
+        {
+            if(DetectfullLineForOneLine(i))
+            {
+                ToBeDestroyed.Add(i);
+            }
+        }
+        DestroyedRows = ToBeDestroyed.ToArray();
+    }
 
     // TODO: create method which checks the board 
 

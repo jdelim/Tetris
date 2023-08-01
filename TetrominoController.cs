@@ -5,10 +5,10 @@ using UnityEngine;
 public class TetrominoController : MonoBehaviour
 {
     #region T Tetromino
-    public Rotation TSpin1 = new Rotation(0, -1, 1, 1, 1, 0, 2, -1);
-    public Rotation TSpin2 = new Rotation(1, 0, 1, -1, 2, 1, -1, -2);
-    public Rotation TSpin3 = new Rotation(0, -1, 1, 1, 2, -1, 1, 2);
-    public Rotation TSpin4 = new Rotation(1, 0, 1, -1, -0, -1, 1, -2);
+    public Rotation TSpin1 = new Rotation(-1, 0, 1, 0, 0, 1, 0, 0);
+    public Rotation TSpin2 = new Rotation(0, 1, 0, -1, 1, 0, 0, 0);
+    public Rotation TSpin3 = new Rotation(-1, 0, 1, 0, 0, -1, 0, 0);
+    public Rotation TSpin4 = new Rotation(0, 1, 0, -1, -1, 0, 0, 0);
     public Tetromino TTetromino = new Tetromino(Vector2Int.zero, TSpin1, TSpin2, TSpin3, TSpin4);
     #endregion
     //TODO: Create a Vector2Int Covering the Origin Position

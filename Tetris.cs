@@ -8,6 +8,10 @@ public class Block
     #region Fields
     private bool active;
     public TetrominoType color;
+    public float dropSpeed;
+    public float normalSpeed;
+    public float hyperSpeed;
+    public int score;
     #endregion
     #region Properties
     public bool isActive { get { return active; } }
@@ -42,6 +46,9 @@ public class Tetris
             }
         }
         DestroyedRows = new int[0];
+        dropSpeed = 1;
+        hyperSpeed = 1.5;
+        normalSpeed = 1;
     }
     #endregion
     #region Methods
@@ -68,7 +75,7 @@ public class Tetris
         {
             if (!Board[i, row].isActive)
             {
-                return false
+                return false;
             }
         }
         return true;
@@ -86,6 +93,46 @@ public class Tetris
         }
         DestroyedRows = ToBeDestroyed.ToArray();
     }
+    //Drops the block faster
+    public void Drop()
+    {
+        dropSpeed = hyperSpeed;
+    }
+    
+    //Makes the block fall
+    public void Fall(TetrominoType aColor)
+    {
+        Thread.sleep(1 / dropSpeed);
+        if(dropSpeed == hyperSpeed)
+        {
+            score = score + 1;
+        }
+        switch(aColor)
+        {
+            case TetrominoType.L:
+                break;
+
+            case TetrominoType.S:
+                break;
+
+            case TetrominoType.Line:
+                break;
+
+            case TetrominoType.Square:
+                break;
+
+            case TetrominoType.T:
+                break;
+
+            case TetrominoType.ReverseL:
+                break;
+
+            case TetrominoType.Z:
+                break;
+
+        }
+    }
+
     #endregion
     #region Line Clear
     //Method Clears one line
@@ -95,6 +142,10 @@ public class Tetris
         {
             Board[i, row] = new Block();
         }
+        normalSpeed = normalSpeed + 0.05;
+        dropSpeed = normalSpeed;
+        hyperSpeed = normalSpeed * 1.5;
+        score = score + 100;
     }
     //Clears all rows on destroy list
     void AllClear() 

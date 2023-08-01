@@ -59,6 +59,7 @@ public class TetrominoController : MonoBehaviour
     public Rotation LineSpin4 = new Rotation(1, 0, 1, 1, 1, 2, 1, 3);
     public Tetromino LineTetromino = new Tetromino(Vector2Int.zero, LineSpin1, LineSpin2, LineSpin3, LineSpin4);
     #endregion
+
     //TODO: *Create a method to check if a specific set of positions is available on the board
     //TODO: Create a means to Access the Board
     //TODO: Create a method to drop tetrominos every (preset) time

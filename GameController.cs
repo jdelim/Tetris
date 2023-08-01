@@ -7,7 +7,7 @@ public class GameController : MonoBehaviour
 {
     public GameObject Connect4Position;
     public TargetScene CurrentGame;
-    //TODO: Add Tetris Game
+    public Tetris TetrisGame;
     public TicTacToe TicTacToeGame;
     public Connect4 Connect4Game;
     public TextMeshPro P1WinCount;
@@ -19,7 +19,7 @@ public class GameController : MonoBehaviour
         {
             case TargetScene.TicTacToe: TicTacToeInput(col, row); break;
             case TargetScene.Connect4: Connect4Input(col); break;
-            //TODO: Create a case for after the Tetromino Lands
+            case TargetScene.Tetris: TetrisInput(col, row) break;
         }
     }
     public void Connect4Input(int col)
@@ -48,9 +48,12 @@ public class GameController : MonoBehaviour
         P1WinCount.text = "Player 1 Win Count\n" + P1Wins.ToString();
         P2WinCount.text = "Player 2 Win Count\n" + P2Wins.ToString();
     }
-    //TODO: Create a Tetris version of input
-    //TODO: Find way to communicate what tetromino type
-    
+    //Create a Tetris version of input
+    public void TetrisInput(int col, int row)
+    {
+        TetrisGame.Move(col, row, TetrominoController.CurrrentType);
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -61,7 +64,10 @@ public class GameController : MonoBehaviour
                 Connect4Game = new Connect4();
                 CreateSpaces();
                 break;
-            //TODO: Create Target for Tetris
+            case TargetScene.Tetris:
+                TetrisGame = new Tetris();
+                CreateSpaces(20, 10);
+                break;
         }
         P1Wins = 0;
         P2Wins = 0;

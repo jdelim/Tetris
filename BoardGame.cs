@@ -4,7 +4,7 @@ namespace BoardGames
     #region Enumerators
     public enum TetrominoType
     {
-        Line, T, L, ReverseL, S, Z, Square
+        Line, T, L, ReverseL, S, Z, Square, Empty
     }
     public enum Space
     {
@@ -38,6 +38,7 @@ namespace BoardGames
         public Block()
         {
             active = false;
+            color = TetrominoType.Empty;
         }
         public Block(TetrominoType current)
         {
@@ -397,11 +398,12 @@ namespace BoardGames
         #region Constructor
         public Tetris()
         {
+            Board = new Block[10, 20];
             for (int row = 0; row < 20; row++)
             {
                 for (int col = 0; col < 10; col++)
                 {
-                    Board[col, row].isActive = false;
+                    Board[col, row] = new Block();
                 }
             }
             DestroyedRows = new int[0];

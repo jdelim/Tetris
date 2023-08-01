@@ -5,7 +5,8 @@ using TetrominoMaker;
 
 public class TetrominoController : MonoBehaviour
 {
-    public static TetrominoType CurrentType;
+    public int Score;
+    public float dropSpeed, normalSpeed, hyperSpeed, maxnormalSpeed;
     public Tetromino Current;
     #region L Tetromino
     public Rotation LSpin1 = new Rotation(1, 1, -1, 0, 1, 0, 0, 0);
@@ -26,7 +27,11 @@ public class TetrominoController : MonoBehaviour
     public Rotation SquareSpin3 = new Rotation(new Rotation(0, 0, 0, 1, 1, 0, 1, 1));
     public Rotation SquareSpin4 = new Rotation(new Rotation(0, 0, 0, 1, 1, 0, 1, 1));
     public Tetromino SquareTetromino = new Tetromino(Vector2Int.zero, SquareSpin1, SquareSpin2, SquareSpin3, SquareSpin4);
-
+    public void setDrop(bool HighSpeed)
+    {
+        dropSpeed = HighSpeed ? hyperSpeed : normalSpeed;
+    }
+    public 
 
     //TODO: Create a Vector2Int Covering the Origin Position
     //TODO: Create a set of four Vector2Ints that are for Rotation 1
@@ -105,6 +110,13 @@ public class Tetromino
                 Spin3 = new Rotation(-1, 0, 0, -1, 1, -1, 0, 0);
                 Spin4 = new Rotation(-1, -1, -1, 0, 0, 1, 0, 0);
                 break;
+            case TetrominoType.Square:
+                Spin1 = new Rotation(new Rotation(0, 0, 0, 1, 1, 0, 1, 1));
+                Spin2 = new Rotation(new Rotation(0, 0, 0, 1, 1, 0, 1, 1));
+                Spin3 = new Rotation(new Rotation(0, 0, 0, 1, 1, 0, 1, 1));
+                Spin4 = new Rotation(new Rotation(0, 0, 0, 1, 1, 0, 1, 1));
+                break;
+
             default:
                 Spin1 = new Rotation(0, 1, 1, 1, 2, 1, 3, 1);
                 Spin2 = new Rotation(2, 0, 2, 1, 2, 2, 2, 3);

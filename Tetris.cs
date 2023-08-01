@@ -25,12 +25,17 @@ public class Tetris
     private int[] DestroyedRows;
     public Tetris()
     {
-        
+        for(int row = 0; row<20; row++)
+        {
+            for(int col = 0; col<10; col++)
+            {
+                Board[col, row].isActive = false;
+            }
+        }
+        DestroyedRows = new int[0];
     }
-    public bool CheckRow(int row) 
-    {
-    
-    }
+
+
     // TODO: create method to place blocks
     public void Move(int x, int y, TetrominoType aColor)
     {
@@ -49,6 +54,7 @@ public class Tetris
         }
         return true;
     }
+    //TODO: Check Board for full line
     void CheckBoard() 
     {
         List<int> ToBeDestroyed = new List<int>();
@@ -61,40 +67,41 @@ public class Tetris
         }
         DestroyedRows = ToBeDestroyed.ToArray();
     }
+    //TODO: Destroy all rows that are full
     void AllClear() 
     { 
         for (int i = 0; i<DestroyedRows.Length; i++ ) 
         {
-            ClearRow(DestroyedRows[i]);
+            RowClear(DestroyedRows[i]);
         }
     }
-    // TODO: create method which checks the board 
 
     // TODO: create method which clears a line
-
-    public void ClearLine(int row)
+    public void RowClear(int row)
     {
-        for(int i = 0; i < 10; i++)
+        for (int i = 0; i < 10; i++)
         {
-            Board[i, row] = false;
+            Board[i, row] = new Block();
         }
     }
-
-    // TODO: create method which destroys full rows
-    public void RowCLear(int row)
-    {
-        if(DetectfullLineForOneLine == true)
-        {
-            for (int i = 10; i < 10; i++)
-            {
-                Board[i, row] = new Block();
-            }
-        }
-    }
-
-
 
     // TODO: create a method which moves board down after blocks destroyed
-
+    public void MoveDown(int row)
+    {
+        int fallcount = 0;
+        foreach(int given in DestroyedRows) if(row > given) fallcount++;
+        for(int i = 0; i < 10; i++)
+        {
+            Block[i, row - fallcount] = Block[i, row];
+            Block[i, row] = new Block();
+        }
+    }
     // TODO: create a method which updates the board
+    void UpdateBoard() 
+    {
+        for (int row = 0; row < 20; row++)
+        {
+            MoveDown(row);
+        }
+    }
 }

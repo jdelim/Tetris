@@ -11,6 +11,13 @@ public class TetrominoController : MonoBehaviour
     public Rotation LSpin4 = new Rotation(0, 1, 0, -1, -1, 1, 0, 0);
     public Tetromino LTetromino = new Tetromino(Vector2Int.zero, LSpin1, LSpin2, LSpin3, LSpin4);
     #endregion
+    #region Z Tetromino
+    public Rotation ZSpin1 = new Rotation(-1, 1, 0, 1, 1, 0, 0, 0);
+    public Rotation ZSpin2 = new Rotation(0, -1, 1, 0, 1, 1, 0, 0);
+    public Rotation ZSpin3 = new Rotation(-1, 0, 0, -1, 1, -1, 0, 0);
+    public Rotation ZSpin4 = new Rotation(-1, -1, -1, 0, 0, 1, 0, 0);
+    public Tetromino ZTetromino = new Tetromino(Vector2Int.zero, ZSpin1, ZSpin2, ZSpin3, ZSpin4);
+    #endregion
     //TODO: Create a Vector2Int Covering the Origin Position
     //TODO: Create a set of four Vector2Ints that are for Rotation 1
     //TODO: Create a set of four Vector2Ints that are for Rotation 2

@@ -31,7 +31,6 @@ public class TetrominoController : MonoBehaviour
     {
         dropSpeed = HighSpeed ? hyperSpeed : normalSpeed;
     }
-    public 
 
     //TODO: Create a Vector2Int Covering the Origin Position
     //TODO: Create a set of four Vector2Ints that are for Rotation 1
@@ -117,7 +116,11 @@ public class Tetromino
                 Spin3 = new Rotation(new Rotation(0, 0, 0, 1, 1, 0, 1, 1));
                 Spin4 = new Rotation(new Rotation(0, 0, 0, 1, 1, 0, 1, 1));
                 break;
-
+            case TetrominoType.S:
+                Spin1 = new Rotation(1, 1, 0, 1, -1, 0, 0, 0);
+                Spin2 = new Rotation(0, 1, 1, -1, 1, 0, 0, 0);
+                Spin3 = new Rotation(-1, -1, 0, -1, 1, 0, 0, 0);
+                Spin4 = new Rotation(-1, 1, -1, 0, 0, -1, 0, 0);
             default:
                 Spin1 = new Rotation(0, 1, 1, 1, 2, 1, 3, 1);
                 Spin2 = new Rotation(2, 0, 2, 1, 2, 2, 2, 3);

@@ -21,6 +21,13 @@ public class TetrominoController : MonoBehaviour
     public Rotation RevLSpin4 = new Rotation(-1, -1, -1, 0, 1, 0, 0, 0);
     public Tetromino RevLTetromino = new Tetromino(Vector2Int.zero, RevLSpin1, RevLSpin2, RevLSpin3, RevLSpin4);
     #endregion
+    public Rotation SquareSpin1 = new Rotation(new Rotation(0, 0, 0, 1, 1, 0, 1, 1));
+    public Rotation SquareSpin2 = new Rotation(new Rotation(0, 0, 0, 1, 1, 0, 1, 1));
+    public Rotation SquareSpin3 = new Rotation(new Rotation(0, 0, 0, 1, 1, 0, 1, 1));
+    public Rotation SquareSpin4 = new Rotation(new Rotation(0, 0, 0, 1, 1, 0, 1, 1));
+    public Tetromino SquareTetromino = new Tetromino(Vector2Int.zero, SquareSpin1, SquareSpin2, SquareSpin3, SquareSpin4);
+
+
     //TODO: Create a Vector2Int Covering the Origin Position
     //TODO: Create a set of four Vector2Ints that are for Rotation 1
     //TODO: Create a set of four Vector2Ints that are for Rotation 2
@@ -56,9 +63,9 @@ public class TetrominoController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+   
     }
-
+ 
     // Update is called once per frame
     void Update()
     {

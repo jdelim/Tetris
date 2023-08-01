@@ -74,15 +74,49 @@ public class TetrominoController : MonoBehaviour
 }
 public class Tetromino
 {
-    public Vector2Int Origin;
+    #region Fields
     public Rotation[] Rotations;
     public int CurrentRotation;
-    public Tetromino(Vector2Int orig, params Rotation[] rotations)
+    public TetrominoType CurrentType;
+    #endregion
+    #region Constructor
+    public Tetromino(TetrominoType TypeRequested)
     {
-        Origin = orig;
-        Rotations = rotations;
         CurrentRotation = 0;
+        CurrentType = TypeRequested;
+        Rotation Spin1, Spin2, Spin3, Spin4;
+        switch(TypeRequested) 
+        {
+            case TetrominoType.L:
+                Spin1 = new Rotation(1, 1, -1, 0, 1, 0, 0, 0);
+                Spin2 = new Rotation(0, 1, 0, -1, 1, -1, 0, 0);
+                Spin3 = new Rotation(-1, -1, -1, 0, 1, 0, 0, 0);
+                Spin4 = new Rotation(0, 1, 0, -1, -1, 1, 0, 0);
+                break;
+            case TetrominoType.ReverseL:
+                Spin1 = new Rotation(-1, 1, -1, 0, 1, 0, 0, 0);
+                Spin2 = new Rotation(0, 1, 0, -1, 1, 1, 0, 0);
+                Spin3 = new Rotation(0, 1, 0, -1, 1, -1, 0, 0);
+                Spin4 = new Rotation(-1, -1, -1, 0, 1, 0, 0, 0);
+                break;
+            case TetrominoType.Z:
+                Spin1 = new Rotation(-1, 1, 0, 1, 1, 0, 0, 0);
+                Spin2 = new Rotation(0, -1, 1, 0, 1, 1, 0, 0);
+                Spin3 = new Rotation(-1, 0, 0, -1, 1, -1, 0, 0);
+                Spin4 = new Rotation(-1, -1, -1, 0, 0, 1, 0, 0);
+                break;
+            default:
+                Spin1 = new Rotation(0, 1, 1, 1, 2, 1, 3, 1);
+                Spin2 = new Rotation(2, 0, 2, 1, 2, 2, 2, 3);
+                Spin3 = new Rotation(0, 2, 1, 2, 2, 2, 3, 2);
+                Spin4 = new Rotation(1, 0, 1, 1, 1, 2, 1, 3);
+                break;
+                break;
+        }
+        Rotations = new Rotation[] { Spin1, Spin2, Spin3, Spin4 };
     }
+    #endregion
+    #region Methods
     public Vector2Int[] ActualPosition(Vector2Int Position)
     {
         Vector2Int[] output = new Vector2Int[4];
@@ -101,6 +135,17 @@ public class Tetromino
         }
         return output;
     }
+    public Vector2Int[] NextPosition(Vector2Int Position)
+    {
+        Vector2Int[] CurrentPosition = ActualPosition(Position);
+        foreach (Vector2Int given in CurrentPosition) given.y--;
+        return CurrentPosition;
+    }
+    public void ChangeRotation(int newRotation)
+    {
+        CurrentRotation = newRotation;
+    }
+    #endregion
 }
 public class Rotation
 {
@@ -116,4 +161,9 @@ public class Rotation
             counter++;
         }
     }
+}
+//To Be Deleted
+public enum TetrominoType
+{
+    Line, T, L, ReverseL, S, Z, Square, Empty
 }

@@ -78,50 +78,6 @@ public class Rotation
     public Rotation(params int placements)
     {
         Placement = new Vector2Int[4];
-        for (int i = 0; i < 8; i += 2)
-        {
-            Vector2Int position1 = new Vector2Int(placements[i], placements[i + 1]);
-        }
-    }
-}
-public class Tetromino
-{
-    public Vector2Int Origin;
-    public Rotation[] Rotations;
-    public Tetromino(Vector2Int orig, params Rotation[] rotations)
-    {
-        Origin = orig;
-        Rotations = rotations;
-    }
-}
-public class Rotation
-{
-    public Vector2Int[] Placement;
-    public Rotation(params int placements)
-    {
-        Placement = new Vector2Int[4];
-        for(int i = 0; i < 8; i += 2)
-        {
-            Vector2Int position1 = new Vector2Int(placements[i], placements[i + 1]);
-        }
-    }
-}
-public class Tetromino
-{
-    public Vector2Int Origin;
-    public Rotation[] Rotations;
-    public Tetromino(Vector2Int orig, params Rotation[] rotations)
-    {
-        Origin = orig;
-        Rotations = rotations;
-    }
-}
-public class Rotation
-{
-    public Vector2Int[] Placement;
-    public Rotation(params int placements)
-    {
-        Placement = new Vector2Int[4];
         for(int i = 0; i < 8; i += 2)
         {
             Vector2Int position1 = new Vector2Int(placements[i], placements[i + 1]);

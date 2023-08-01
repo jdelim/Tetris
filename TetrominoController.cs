@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class TetrominoController : MonoBehaviour
 {
+    public static TetrominoType CurrentType;
+    public Tetromino Current;
     #region L Tetromino
     public Rotation LSpin1 = new Rotation(1, 1, -1, 0, 1, 0, 0, 0);
     public Rotation LSpin2 = new Rotation(0, 1, 0, -1, 1, -1, 0, 0);
@@ -38,10 +40,30 @@ public class Tetromino
 {
     public Vector2Int Origin;
     public Rotation[] Rotations;
+    public int CurrentRotation;
     public Tetromino(Vector2Int orig, params Rotation[] rotations)
     {
         Origin = orig;
         Rotations = rotations;
+        CurrentRotation = 0;
+    }
+    public Vector2Int[] ActualPosition(Vector2Int Position)
+    {
+        Vector2Int[] output = new Vector2Int[4];
+        for (int i = 0; i < 4; i++)
+        {
+            output[0] = Position + Rotations[CurrentRotation].Placement[i];
+        }
+        return output;
+    }
+    public Vector2Int[] ActualPosition(Vector2Int Position, int rotation)
+    {
+        Vector2Int[] output = new Vector2Int[4];
+        for (int i = 0; i < 4; i++)
+        {
+            output[0] = Position + Rotations[rotation].Placement[i];
+        }
+        return output;
     }
 }
 public class Rotation
@@ -50,9 +72,12 @@ public class Rotation
     public Rotation(params int placements)
     {
         Placement = new Vector2Int[4];
+        int counter = 0;
         for(int i = 0; i < 8; i += 2)
         {
-            Vector2Int position1 = new Vector2Int(placements[i], placements[i + 1]);
+            Vector2Int position = new Vector2Int(placements[i], placements[i + 1]);
+            Placement[counter] = position;
+            counter++;
         }
     }
 }

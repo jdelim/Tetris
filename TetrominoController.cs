@@ -6,12 +6,12 @@ using TetrominoMaker;
 public class TetrominoController : MonoBehaviour
 {
 <<<<<<< HEAD
-    #region L Tetromino
-    public Rotation LSpin1 = new Rotation(1, 1, -1, 0, 1, 0, 0, 0);
-    public Rotation LSpin2 = new Rotation(0, 1, 0, -1, 1, -1, 0, 0);
-    public Rotation LSpin3 = new Rotation(-1, -1, -1, 0, 1, 0, 0, 0);
-    public Rotation LSpin4 = new Rotation(0, 1, 0, -1, -1, 1, 0, 0);
-    public Tetromino LTetromino = new Tetromino(Vector2Int.zero, LSpin1, LSpin2, LSpin3, LSpin4);
+    #region S Tetromino
+    public Rotation SSpin1 = new Rotation(1, 1, 0, 1, -1, 0, 0, 0);
+    public Rotation SSpin2 = new Rotation(0, 1, 1, -1, 1, -1, 0, 0);
+    public Rotation SSpin3 = new Rotation(-1, -1, 0, -1, 1, 0, 0, 0);
+    public Rotation SSpin4 = new Rotation(1, 0, 0, -1, -1, 1, 0, 0);
+    public Tetromino STetromino = new Tetromino(Vector2Int.zero, SSpin1, SSpin2, SSpin3, SSpin4);
     #endregion
 =======
     public Rotation;

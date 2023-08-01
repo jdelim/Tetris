@@ -7,8 +7,8 @@ public class TetrominoController : MonoBehaviour
     #region L Tetromino
     public Rotation LSpin1 = new Rotation(1, 1, -1, 0, 1, 0, 0, 0);
     public Rotation LSpin2 = new Rotation(0, 1, 0, -1, 1, -1, 0, 0);
-    public Rotation LSpin3 = new Rotation(0, 1, 0, -1, -1, 1, 0, 0);
-    public Rotation LSpin4 = new Rotation(-1, -1, -1, 0, 1, 0, 0, 0);
+    public Rotation LSpin3 = new Rotation(-1, -1, -1, 0, 1, 0, 0, 0);
+    public Rotation LSpin4 = new Rotation(0, 1, 0, -1, -1, 1, 0, 0);
     public Tetromino LTetromino = new Tetromino(Vector2Int.zero, LSpin1, LSpin2, LSpin3, LSpin4);
     #endregion
     #region Z Tetromino

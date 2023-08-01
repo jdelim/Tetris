@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TetrominoMaker;
 
 public class TetrominoController : MonoBehaviour
 {
+<<<<<<< HEAD
     #region L Tetromino
     public Rotation LSpin1 = new Rotation(1, 1, -1, 0, 1, 0, 0, 0);
     public Rotation LSpin2 = new Rotation(0, 1, 0, -1, 1, -1, 0, 0);
@@ -14,6 +16,15 @@ public class TetrominoController : MonoBehaviour
     //TODO: Create a Vector2Int Covering the Origin Position
     //TODO: Create a set of four Vector2Ints that are for Rotation 1
     //TODO: Create a set of four Vector2Ints that are for Rotation 2
+=======
+    #region S Tetromino
+    public Rotation SSpin1 = new Rotation(1, 1, 0, 1, -1, 0, 0, 0);
+    public Rotation SSpin2 = new Rotation(0, 1, 1, -1, 1, -1, 0, 0);
+    public Rotation SSpin3 = new Rotation(-1, -1, 0, -1, 1, 0, 0, 0);
+    public Rotation SSpin4 = new Rotation(1, 0, 0, -1, -1, 1, 0, 0);
+    public Tetromino STetromino = new Tetromino(Vector2Int.zero, SSpin1, SSpin2, SSpin3, SSpin4);
+    #endregion
+>>>>>>> STetromino
     //TODO: Create a set of four Vector2Ints that are for Rotation 3
     //TODO: Create a set of four Vector2Ints that are for Rotation 4
     //TODO: *Create a method to check if a specific set of positions is available on the board
@@ -25,13 +36,57 @@ public class TetrominoController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
+    }
+}
+public class Tetromino
+{
+    public Vector2Int Origin;
+    public Rotation[] Rotations;
+    public Tetromino(Vector2Int orig, params Rotation[] rotations)
+    {
+        Origin = orig;
+        Rotations = rotations;
+    }
+}
+public class Rotation
+{
+    public Vector2Int[] Placement;
+    public Rotation(params int placements)
+    {
+        Placement = new Vector2Int[4];
+        for (int i = 0; i < 8; i += 2)
+        {
+            Vector2Int position1 = new Vector2Int(placements[i], placements[i + 1]);
+        }
+    }
+}
+public class Tetromino
+{
+    public Vector2Int Origin;
+    public Rotation[] Rotations;
+    public Tetromino(Vector2Int orig, params Rotation[] rotations)
+    {
+        Origin = orig;
+        Rotations = rotations;
+    }
+}
+public class Rotation
+{
+    public Vector2Int[] Placement;
+    public Rotation(params int placements)
+    {
+        Placement = new Vector2Int[4];
+        for(int i = 0; i < 8; i += 2)
+        {
+            Vector2Int position1 = new Vector2Int(placements[i], placements[i + 1]);
+        }
     }
 }
 public class Tetromino

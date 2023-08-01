@@ -59,7 +59,7 @@ public class TetrominoController : MonoBehaviour
     //TODO: Create a method to drop tetrominos every (preset) time
     //TODO: Create a method to lower that amount of time
     //TODO: Create a method to take input
-99
+
     // Start is called before the first frame update
     void Start()
     {

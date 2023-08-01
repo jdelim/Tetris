@@ -5,10 +5,15 @@ public enum TetrominoType
 }
 public class Block
 {
+    #region Fields
     private bool active;
     public TetrominoType color;
+    #endregion
+    #region Properties
     public bool isActive { get { return active; } }
     public bool makeActive { set { active = value; } }
+    #endregion
+    #region Constructors
     public Block()
     {
         active = false;
@@ -18,11 +23,15 @@ public class Block
         active = true;
         color = current;
     }
+    #endregion
 }
 public class Tetris
 {
+    #region Fields
     public Block[,] Board;
     private int[] DestroyedRows;
+    #endregion
+    #region Constructor
     public Tetris()
     {
         for(int row = 0; row<20; row++)
@@ -35,14 +44,25 @@ public class Tetris
         DestroyedRows = new int[0];
     }
 
-
-    // TODO: create method to place blocks
+    #endregion
+    #region Methods
+    #region Make Move
+    //Method to place blocks
     public void Move(int x, int y, TetrominoType aColor)
     {
         Board[x, y] = new Block(aColor);
     }
-
-    // TODO: create method to detect a line of blocks
+    //Method Updates the Entire Game After Move Complete
+    public void MoveComplete()
+    {
+        CheckBoard();
+        AllClear();
+        UpdateBoard();
+        DestroyedRows = new int[0];
+    }
+    #endregion
+    #region Line Detection
+    //Method to detect one line of blocks
     bool DetectfullLineForOneLine(int row)
     {
         for (int i = 0; i < 10; i++)
@@ -54,7 +74,7 @@ public class Tetris
         }
         return true;
     }
-    //TODO: Check Board for full line
+    //Method to Check Board for full lines
     void CheckBoard() 
     {
         List<int> ToBeDestroyed = new List<int>();
@@ -67,16 +87,9 @@ public class Tetris
         }
         DestroyedRows = ToBeDestroyed.ToArray();
     }
-    //TODO: Destroy all rows that are full
-    void AllClear() 
-    { 
-        for (int i = 0; i<DestroyedRows.Length; i++ ) 
-        {
-            RowClear(DestroyedRows[i]);
-        }
-    }
-
-    // TODO: create method which clears a line
+    #endregion
+    #region Line Clear
+    //Method Clears one line
     public void RowClear(int row)
     {
         for (int i = 0; i < 10; i++)
@@ -84,8 +97,17 @@ public class Tetris
             Board[i, row] = new Block();
         }
     }
-
-    // TODO: create a method which moves board down after blocks destroyed
+    //Clears all rows on destroy list
+    void AllClear() 
+    { 
+        for (int i = 0; i<DestroyedRows.Length; i++ ) 
+        {
+            RowClear(DestroyedRows[i]);
+        }
+    }
+    #endregion
+    #region Update After Clear
+    //Moves one row down Correct Number of Blocks After Blocks Are Destroyed
     public void MoveDown(int row)
     {
         int fallcount = 0;
@@ -96,7 +118,7 @@ public class Tetris
             Block[i, row] = new Block();
         }
     }
-    // TODO: create a method which updates the board
+    //Method which updates the board
     void UpdateBoard() 
     {
         for (int row = 0; row < 20; row++)
@@ -104,4 +126,6 @@ public class Tetris
             MoveDown(row);
         }
     }
+    #endregion
+    #endregion
 }

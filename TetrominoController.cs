@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class TetrominoController : MonoBehaviour
 {
+    #region L Tetromino
+    public Rotation LSpin1 = new Rotation(1, 1, -1, 0, 1, 0, 0, 0);
+    public Rotation LSpin2 = new Rotation(0, 1, 0, -1, 1, -1, 0, 0);
+    public Rotation LSpin3 = new Rotation(0, 1, 0, -1, -1, 1, 0, 0);
+    public Rotation LSpin4 = new Rotation(-1, -1, -1, 0, 1, 0, 0, 0);
+    public Tetromino LTetromino = new Tetromino(new Vector2Int(5, 15), LSpin1, LSpin2, LSpin3, LSpin4);
+    #endregion
     //TODO: Create a Vector2Int Covering the Origin Position
     //TODO: Create a set of four Vector2Ints that are for Rotation 1
     //TODO: Create a set of four Vector2Ints that are for Rotation 2
@@ -25,5 +32,27 @@ public class TetrominoController : MonoBehaviour
     void Update()
     {
         
+    }
+}
+public class Tetromino
+{
+    public Vector2Int Origin;
+    public Rotation[] Rotations;
+    public Tetromino(Vector2Int orig, params Rotation[] rotations)
+    {
+        Origin = orig;
+        Rotations = rotations;
+    }
+}
+public class Rotation
+{
+    public Vector2Int[] Placement;
+    public Rotation(params int placements)
+    {
+        Placement = new Vector2Int[4];
+        for(int i = 0; i < 8; i += 2)
+        {
+            Vector2Int position1 = new Vector2Int(placements[i], placements[i + 1]);
+        }
     }
 }

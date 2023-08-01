@@ -11,11 +11,13 @@ public class TetrominoController : MonoBehaviour
     public Rotation LSpin4 = new Rotation(-1, -1, -1, 0, 1, 0, 0, 0);
     public Tetromino LTetromino = new Tetromino(new Vector2Int(5, 15), LSpin1, LSpin2, LSpin3, LSpin4);
     #endregion
-    //TODO: Create a Vector2Int Covering the Origin Position
-    //TODO: Create a set of four Vector2Ints that are for Rotation 1
-    //TODO: Create a set of four Vector2Ints that are for Rotation 2
-    //TODO: Create a set of four Vector2Ints that are for Rotation 3
-    //TODO: Create a set of four Vector2Ints that are for Rotation 4
+    #region Line Tetromino
+    public Rotation LineSpin1 = new Rotation(0, 1, 1, 1, 2, 1, 3, 1);
+    public Rotation LineSpin2 = new Rotation(2, 0, 2, 1, 2, 2, 2, 3);
+    public Rotation LineSpin3 = new Rotation(0, 2, 1, 2, 2, 2, 3, 2);
+    public Rotation LineSpin4 = new Rotation(1, 0, 1, 1, 1, 2, 1, 3);
+    public Tetromino LineTetromino = new Tetromino(Vector2Int.zero, LineSpin1, LineSpin2, LineSpin3, LineSpin4);
+    #endregion
     //TODO: *Create a method to check if a specific set of positions is available on the board
     //TODO: Create a means to Access the Board
     //TODO: Create a method to drop tetrominos every (preset) time

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TetrominoMaker;
 
 public class TetrominoController : MonoBehaviour
 {
@@ -23,6 +24,13 @@ public class TetrominoController : MonoBehaviour
     //TODO: Create a Vector2Int Covering the Origin Position
     //TODO: Create a set of four Vector2Ints that are for Rotation 1
     //TODO: Create a set of four Vector2Ints that are for Rotation 2
+    #region S Tetromino
+    public Rotation SSpin1 = new Rotation(1, 1, 0, 1, -1, 0, 0, 0);
+    public Rotation SSpin2 = new Rotation(0, 1, 1, -1, 1, 0, 0, 0);
+    public Rotation SSpin3 = new Rotation(-1, -1, 0, -1, 1, 0, 0, 0);
+    public Rotation SSpin4 = new Rotation(-1, 1, -1, 0, 0, -1, 0, 0);
+    public Tetromino STetromino = new Tetromino(Vector2Int.zero, SSpin1, SSpin2, SSpin3, SSpin4);
+    #endregion
     //TODO: Create a set of four Vector2Ints that are for Rotation 3
     //TODO: Create a set of four Vector2Ints that are for Rotation 4
     #region Z Tetromino
@@ -48,13 +56,13 @@ public class TetrominoController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }
 public class Tetromino

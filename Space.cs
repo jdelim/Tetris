@@ -26,6 +26,7 @@ public class Space : MonoBehaviour
     //TODO: Exclude Tetris from Execution
     public void OnMouseUpAsButton()
     {
-        Controller.GetInput(col, row);
+            Controller.GetInput(col, row);
+        
     }
 }

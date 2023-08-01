@@ -43,7 +43,6 @@ public class Tetris
         }
         DestroyedRows = new int[0];
     }
-
     #endregion
     #region Methods
     #region Make Move

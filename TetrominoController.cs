@@ -13,7 +13,7 @@ public class TetrominoController : MonoBehaviour
     //TODO: Create a means to Access the Board
     //TODO: Create a method to drop tetrominos every (preset) time
     //TODO: Create a method to lower that amount of time
-    //TODO: Create a method to take input
+    //TODO: Create a method to take input 
 
     // Start is called before the first frame update
     void Start()

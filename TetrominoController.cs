@@ -5,7 +5,17 @@ using TetrominoMaker;
 
 public class TetrominoController : MonoBehaviour
 {
+<<<<<<< HEAD
+    #region L Tetromino
+    public Rotation LSpin1 = new Rotation(1, 1, -1, 0, 1, 0, 0, 0);
+    public Rotation LSpin2 = new Rotation(0, 1, 0, -1, 1, -1, 0, 0);
+    public Rotation LSpin3 = new Rotation(-1, -1, -1, 0, 1, 0, 0, 0);
+    public Rotation LSpin4 = new Rotation(0, 1, 0, -1, -1, 1, 0, 0);
+    public Tetromino LTetromino = new Tetromino(Vector2Int.zero, LSpin1, LSpin2, LSpin3, LSpin4);
+    #endregion
+=======
     public Rotation;
+>>>>>>> STetromino
     //TODO: Create a Vector2Int Covering the Origin Position
     public Vector2int() OriginPosition;
     //TODO: Create a set of four Vector2Ints that are for Rotation 1
@@ -23,12 +33,34 @@ public class TetrominoController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
+    }
+}
+public class Tetromino
+{
+    public Vector2Int Origin;
+    public Rotation[] Rotations;
+    public Tetromino(Vector2Int orig, params Rotation[] rotations)
+    {
+        Origin = orig;
+        Rotations = rotations;
+    }
+}
+public class Rotation
+{
+    public Vector2Int[] Placement;
+    public Rotation(params int placements)
+    {
+        Placement = new Vector2Int[4];
+        for (int i = 0; i < 8; i += 2)
+        {
+            Vector2Int position1 = new Vector2Int(placements[i], placements[i + 1]);
+        }
     }
 }

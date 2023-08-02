@@ -27,7 +27,31 @@ public class TetrominoController : MonoBehaviour
     //TODO: *Create a method to check if a specific set of positions is available on the board
     public bool isRotationAvailable() //Hobbs
     {
-
+        //Store the Current Rotation as output
+        Rotation output = CurrentRotation[i];
+        //Store the current equal to output + 1
+        Rotation current = CurrentRotation[i+1]
+        //If current is greater than three then set to zero
+        //While current does not equal output
+            Vector2Int[] Actual = Current.ActualPosition(Position, current);//Get the Actual Position of the Tetromino given a current rotation
+            //Check Each Position to see if it is available
+            //If available set output = to current
+            //Otherwise
+                //Increase Current
+                //If current is greater than three then set to zero
+        //return output
+        for(int i = 0; i < 4; i++)
+        {
+            if (Current.Rotation[CurrentRotation + 1].Placement[i] + ActualPosition(Position).x > 10 || Current.Rotation[CurrentRotation + 1].Placement[i] + ActualPosition.x < 0)
+            {
+                return false;
+            }
+            f(Current.Rotation[CurrentRotation + 1].Placement[i] + ActualPosition(Position).y > 20 || Current.Rotation[CurrentRotation + 1].Placement[i] + ActualPosition.x < 0)
+            {
+                return false;
+            }
+        }
+        return true;
     }
     //TODO: Can the tetromino go down
     public bool isNextPositionAvailable() 

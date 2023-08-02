@@ -27,7 +27,7 @@ public class TetrominoController : MonoBehaviour
     }
     public Vector2Int Position;
     //TODO: *Create a method to check if a specific set of positions is available on the board
-    public bool isRotationAvailable() //Hobbs
+    public bool isRotationAvailable()
     {
 
     }
@@ -52,7 +52,7 @@ public class TetrominoController : MonoBehaviour
     //TODO: Create a means to Access the Board
     public bool isPositionAvailable(int col, int row)
     {
-
+        return Board[col, row].Equals(new Block());
     }
     //TODO: Move Left or Right - Indicate left or right
     public void MoveSideWays(int direction)

@@ -58,7 +58,10 @@ public class TetrominoController : MonoBehaviour
     //TODO: Go Down - Move Tetromino to lower position
     public void GoDown()
     {
-
+        if(isNextPositionAvailable())
+        {
+            Position = new Vector2(Position.x, Position.y - 1);
+        }
     }
     //TODO: Landing Program - Execute Tetris Input on Game Controller for each Position on Tetromino
     public void Land()

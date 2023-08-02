@@ -68,7 +68,7 @@ public class Tetris
         {
             if (!Board[i, row].isActive)
             {
-                return false
+                return false;
             }
         }
         return true;

@@ -11,7 +11,7 @@ public class TetrominoMaker : MonoBehaviour
     {
         GetTetrominons();
     }
-    Tetromino[] GetTetrominons()
+    Tetromino[] GetTetrominos()
     {
         string[] Data = TetrominoData.text.Split("\n");
         List<Tetromino> Tetrominos = new List<Tetromino>();

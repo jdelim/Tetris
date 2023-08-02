@@ -30,9 +30,18 @@ public class TetrominoController : MonoBehaviour
 
     }
     //TODO: Can the tetromino go down
-    public bool isNextPositionAvailable() 
+    public bool isNextPositionAvailable(Vector2Int Position)
     {
-
+        bool output = true;
+        Vector2Int[] CurrentPosition = Current.NextPosition(Position);  //Find where the tetromino would actually be if moved down
+        foreach (Vector2Int given in CurrentPosition)                   //Loop through each position in the Positions Provided
+        {
+            if (Controller.TetrisGame.Board[given.x, given.y] != Position.Empty)
+            {
+                output = false;                                         //if any tetrmino block would be in a occupied position return false
+            }
+        }
+        return output;                                                  //If none are occupied, return true
     }
     //TODO: Create a means to Access the Board
     public bool isPositionAvailable(int col, int row)

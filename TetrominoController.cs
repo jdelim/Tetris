@@ -13,6 +13,8 @@ public class TetrominoController : MonoBehaviour
     //TODO: Create an Enumerator for the Actions that Can Occur
 
     //TODO: Create the Tetromino List
+    public List<TetrominoType> TetrominoList = new List<TetrominoType>();
+
     public GameController Controller;
     //TODO: Play Sound Corresponding With Sound Effect
     public void PlaySound()
@@ -30,9 +32,22 @@ public class TetrominoController : MonoBehaviour
 
     }
     //TODO: Can the tetromino go down
+<<<<<<< HEAD
     public bool isNextPositionAvailable()
+=======
+    public bool isNextPositionAvailable(Vector2Int Position)
+>>>>>>> master
     {
-
+        bool output = true;
+        Vector2Int[] CurrentPosition = Current.NextPosition(Position);  //Find where the tetromino would actually be if moved down
+        foreach (Vector2Int given in CurrentPosition)                   //Loop through each position in the Positions Provided
+        {
+            if (Controller.TetrisGame.Board[given.x, given.y] != Position.Empty)
+            {
+                output = false;                                         //if any tetrmino block would be in a occupied position return false
+            }
+        }
+        return output;                                                  //If none are occupied, return true
     }
     //TODO: Create a means to Access the Board
     public bool isPositionAvailable(int col, int row)
@@ -40,25 +55,29 @@ public class TetrominoController : MonoBehaviour
 
     }
     //TODO: Move Left or Right - Indicate left or right
-    public void MoveSideWays()
+    public void MoveSideWays(int direction)
     {
-
+        Position.x = Position.x + direction;
+        
     }
     //TODO: Create a method to drop tetrominos every (preset) time
-    public IEnumerator Drop() //Move Tetromino down every (dropspeed) seconds
+    public IEnumerator Drop(int Dropspeed) //Move Tetromino down every (dropspeed) seconds
     {
-        //Do I have a Tetromino
-        //Create a Tetromino
-        //Wait a Preset Amount of Time
-        //Can the Tetromino Go Down
-        //Go Down
-        //Otherwise
-        //Land
+        if(Current == null) //If I don't have a Tetromino
+        {
+            CreateTetromino();                          //Make Sure New Tetromino Gets Created
+        }
+        yield return new WaitForSeconds(Dropspeed);
+        if (isNextPositionAvailable()) GoDown(); 
+        else Land();
     }
     //TODO: Go Down - Move Tetromino to lower position
     public void GoDown()
     {
-
+        if(isNextPositionAvailable())
+        {
+            Position = new Vector2(Position.x, Position.y - 1);
+        }
     }
     //TODO: Landing Program - Execute Tetris Input on Game Controller for each Position on Tetromino
     public void Land()
@@ -68,7 +87,14 @@ public class TetrominoController : MonoBehaviour
     //TODO: Create the List of Tetrominos so we know which one is next
     public void CreateTetrominoList()
     {
-
+        for (int i = 0; i < 6; i++)//Repeat this process (x) number of times (four loop)
+        {
+            Random generator = new Random();                                         //Create Random Number Generator
+            TetrominoType currentTetromino = (TetrominoType)generator.Next(0, 7);    //Create a random number between zero and six as Tetromino
+            TetrominoList.Add(currentTetromino);                                     //Add it to the list
+        }
+    }
+            
     }
     //TODO: Create a Tetromino and place at the top to start falling
     public void CreateTetromino()
@@ -96,7 +122,18 @@ public class TetrominoController : MonoBehaviour
     public void Update()
     {
         //Capture Input
-
+        if(input.OnKeyDown(KeyCode.LeftArrow)){
+            MoveSideWays('Left');
+        }
+        if(input.OnKeyDown(KeyCode.DownArrow)){
+            GoDown();
+        }
+        if(input.OnKeyDown(KeyCode.RightArrow)){
+            MoveSideWays('Right');
+        }
+        if(input.OnKeyDown(KeyCode.UpArrow)){
+            Current.ChangeRotation()
+        }
     }
 }
 public class Tetromino

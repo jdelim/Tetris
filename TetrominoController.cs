@@ -1,23 +1,97 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TetrominoMaker;
 
 public class TetrominoController : MonoBehaviour
 {
     public int Score;
     public float dropSpeed, normalSpeed, hyperSpeed, maxnormalSpeed;
     public Tetromino Current;
+    public Vector2 Position;
+    //TODO: Adding Sound Effects
+    //TODO: Adding the Music
+    //TODO: Create an Enumerator for the Actions that Can Occur
+
+    //TODO: Create the Tetromino List
+    public GameController Controller;
+    //TODO: Play Sound Corresponding With Sound Effect
+    public void PlaySound()
+    {
+
+    }
     public void setDrop(bool HighSpeed)
     {
         dropSpeed = HighSpeed ? hyperSpeed : normalSpeed;
     }
     public Vector2Int Position;
     //TODO: *Create a method to check if a specific set of positions is available on the board
+    public bool isRotationAvailable() //Hobbs
+    {
+
+    }
+    //TODO: Can the tetromino go down
+    public bool isNextPositionAvailable() 
+    {
+
+    }
     //TODO: Create a means to Access the Board
+    public bool isPositionAvailable(int col, int row)
+    {
+
+    }
+    //TODO: Move Left or Right - Indicate left or right
+    public void MoveSideWays()
+    {
+
+    }
     //TODO: Create a method to drop tetrominos every (preset) time
+    public IEnumerator Drop() //Move Tetromino down every (dropspeed) seconds
+    {
+        //Do I have a Tetromino
+            //Create a Tetromino
+        //Wait a Preset Amount of Time
+        //Can the Tetromino Go Down
+            //Go Down
+        //Otherwise
+            //Land
+    }
+    //TODO: Go Down - Move Tetromino to lower position
+    public void GoDown()
+    {
+
+    }
+    //TODO: Landing Program - Execute Tetris Input on Game Controller for each Position on Tetromino
+    public void Land()
+    {
+
+    }
+    //TODO: Create the List of Tetrominos so we know which one is next
+    public void CreateTetrominoList()
+    {
+
+    }
+    //TODO: Create a Tetromino and place at the top to start falling
+    public void CreateTetromino()
+    {
+        //Add to the list so it never ends
+    }
+    //TODO: Write the Start Method
+    public void Start
+    {
+        //Create the Tetromino List
+        //Start Drop Program
+    }
     //TODO: Create a method to lower that amount of time
+    public void ChangeTime()
+    {
+        //Adjust the Variables for Time
+    }
     //TODO: Create a method to take input
+    public void Update()
+    {
+        //Capture Input
+
+    }
 }
 public class Tetromino
 {

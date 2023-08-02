@@ -9,6 +9,32 @@ public class TetrominoController : MonoBehaviour
     public Tetromino Current;
     public Vector2 Position;
     //TODO: Adding Sound Effects
+    public AudioSource adSource;
+    public AudioClip[] adClips;
+
+    IEnumerator playAudioSequentially()
+    {
+        yield return null;
+
+        //1.Loop through each AudioClip
+        for (int i = 0; i < adClips.Length; i++)
+        {
+            //2.Assign current AudioClip to audiosource
+            adSource.clip = adClips[i];
+
+            //3.Play Audio
+            adSource.Play();
+
+            //4.Wait for it to finish playing
+            while (adSource.isPlaying)
+            {
+                yield return null;
+            }
+
+            //5. Go back to #2 and play the next audio in the adClips array
+        }
+    }
+
     //TODO: Adding the Music
     //TODO: Create an Enumerator for the Actions that Can Occur
 

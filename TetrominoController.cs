@@ -32,7 +32,11 @@ public class TetrominoController : MonoBehaviour
 
     }
     //TODO: Can the tetromino go down
+<<<<<<< HEAD
+    public bool isNextPositionAvailable()
+=======
     public bool isNextPositionAvailable(Vector2Int Position)
+>>>>>>> master
     {
         bool output = true;
         Vector2Int[] CurrentPosition = Current.NextPosition(Position);  //Find where the tetromino would actually be if moved down
@@ -95,7 +99,13 @@ public class TetrominoController : MonoBehaviour
     //TODO: Create a Tetromino and place at the top to start falling
     public void CreateTetromino()
     {
+        Random RNG = new Random();                              //Create A Random Number Generator
+        Position = new Vector2Int(5, 22);                       //Reset Position
+        Current = new Tetromino(TetrominoList[0]);              //Create a New Tetromino
+        TetrominoList().RemoveAt(0);                            //Remove the used tetromino type from the list
         //Add to the list so it never ends
+        TetrominoType New = (TetrominoType) RNG.Next(0, 7);     //Make new tetromino type
+        TetrominoList().Add(New);                               //Replace the tetromino removed so the list never ends
     }
     //TODO: Write the Start Method
     public void Start

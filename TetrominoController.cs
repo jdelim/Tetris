@@ -81,6 +81,9 @@ public class TetrominoController : MonoBehaviour
     //TODO: Write the Start Method
     public void Start
     {
+        // game = new TetrisGame(7, 6);
+        //game.StartGame();
+        //game.StartDropprogram
         //Create the Tetromino List
         //Start Drop Program
     }

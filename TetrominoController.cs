@@ -49,8 +49,6 @@ public class TetrominoController : MonoBehaviour
     {
         if(Current == null) //If I don't have a Tetromino
         {
-            Current = new Tetromino(TetrominoList[0]);  //Create a Tetromino
-            TetrominoList.RemoveAt(0);                  //Remove the Tetromino from the List
             CreateTetromino();                          //Make Sure New Tetromino Gets Created
         }
         yield return new WaitForSeconds(Dropspeed);

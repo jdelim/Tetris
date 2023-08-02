@@ -13,6 +13,10 @@ public class TetrominoController : MonoBehaviour
     //TODO: Create an Enumerator for the Actions that Can Occur
 
     //TODO: Create the Tetromino List
+    public List<TetrominoType> TetrominoList = new List<TetrominoType>();
+
+
+    
     public GameController Controller;
     //TODO: Play Sound Corresponding With Sound Effect
     public void PlaySound()
@@ -68,7 +72,14 @@ public class TetrominoController : MonoBehaviour
     //TODO: Create the List of Tetrominos so we know which one is next
     public void CreateTetrominoList()
     {
-
+        for (int i = 0; i < 6; i++)//Repeat this process (x) number of times (four loop)
+        {
+            Random generator = new Random();                                         //Create Random Number Generator
+            TetrominoType currentTetromino = (TetrominoType)generator.Next(0, 7);    //Create a random number between zero and six as Tetromino
+            TetrominoList.Add(currentTetromino);                                     //Add it to the list
+        }
+    }
+            
     }
     //TODO: Create a Tetromino and place at the top to start falling
     public void CreateTetromino()

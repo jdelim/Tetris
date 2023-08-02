@@ -90,7 +90,18 @@ public class TetrominoController : MonoBehaviour
     public void Update()
     {
         //Capture Input
-
+        if(input.OnKeyDown(KeyCode.LeftArrow)){
+            MoveSideWays('Left');
+        }
+        if(input.OnKeyDown(KeyCode.DownArrow)){
+            GoDown();
+        }
+        if(input.OnKeyDown(KeyCode.RightArrow)){
+            MoveSideWays('Right');
+        }
+        if(input.OnKeyDown(KeyCode.UpArrow)){
+            Current.ChangeRotation()
+        }
     }
 }
 public class Tetromino

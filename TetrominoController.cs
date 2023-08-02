@@ -117,6 +117,7 @@ public class TetrominoController : MonoBehaviour
     public void ChangeTime()
     {
         //Adjust the Variables for Time
+        Vector3 movement = new Vector3(h, 0, v).normalized * speed * Time.DeltaTime;
     }
     //TODO: Create a method to take input
     public void Update()

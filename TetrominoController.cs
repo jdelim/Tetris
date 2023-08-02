@@ -15,8 +15,6 @@ public class TetrominoController : MonoBehaviour
     //TODO: Create the Tetromino List
     public List<TetrominoType> TetrominoList = new List<TetrominoType>();
 
-
-    
     public GameController Controller;
     //TODO: Play Sound Corresponding With Sound Effect
     public void PlaySound()

@@ -56,15 +56,15 @@ public class TetrominoController : MonoBehaviour
 
     }
     //TODO: Create a method to drop tetrominos every (preset) time
-    public IEnumerator Drop() //Move Tetromino down every (dropspeed) seconds
+    public IEnumerator Drop(int Dropspeed) //Move Tetromino down every (dropspeed) seconds
     {
-        //Do I have a Tetromino
-            //Create a Tetromino
-        //Wait a Preset Amount of Time
-        //Can the Tetromino Go Down
-            //Go Down
-        //Otherwise
-            //Land
+        if(Current == null) //If I don't have a Tetromino
+        {
+            CreateTetromino();                          //Make Sure New Tetromino Gets Created
+        }
+        yield return new WaitForSeconds(Dropspeed);
+        if (isNextPositionAvailable()) GoDown(); 
+        else Land();
     }
     //TODO: Go Down - Move Tetromino to lower position
     public void GoDown()

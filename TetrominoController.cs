@@ -51,9 +51,10 @@ public class TetrominoController : MonoBehaviour
 
     }
     //TODO: Move Left or Right - Indicate left or right
-    public void MoveSideWays()
+    public void MoveSideWays(int direction)
     {
-
+        Position.x = Position.x + direction;
+        
     }
     //TODO: Create a method to drop tetrominos every (preset) time
     public IEnumerator Drop(int Dropspeed) //Move Tetromino down every (dropspeed) seconds

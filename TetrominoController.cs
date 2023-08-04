@@ -1,190 +1,240 @@
+using BoardGames;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
-
 public class TetrominoController : MonoBehaviour
 {
-    public int Score;
+    public int Score, Level;
+    public bool canDrop;
     public float dropSpeed, normalSpeed, hyperSpeed, maxnormalSpeed;
-    public Tetromino Current;
-    public Vector2 Position;
-    //TODO: Adding Sound Effects
-    public AudioSource adSource;
-    public AudioClip[] adClips;
-
-    IEnumerator playAudioSequentially()
-    {
-        yield return null;
-
-        //1.Loop through each AudioClip
-        for (int i = 0; i < adClips.Length; i++)
-        {
-            //2.Assign current AudioClip to audiosource
-            adSource.clip = adClips[i];
-
-            //3.Play Audio
-            adSource.Play();
-
-            //4.Wait for it to finish playing
-            while (adSource.isPlaying)
-            {
-                yield return null;
-            }
-
-            //5. Go back to #2 and play the next audio in the adClips array
-        }
-    }
-
-    //TODO: Adding the Music
-    //TODO: Create an Enumerator for the Actions that Can Occur
-
-    //TODO: Create the Tetromino List
+    public float[] normalSpeeds;
+    public static Tetromino Current;
+    public AudioSource MusicPlayer;
+    public AudioClip MusicFile;
+    public AudioSource SoundEffectPlayer;
+    public AudioClip[] SoundEffect;
     public List<TetrominoType> TetrominoList = new List<TetrominoType>();
-
     public GameController Controller;
-    //TODO: Play Sound Corresponding With Sound Effect
-    public void PlaySound()
+    public Vector2Int Position;
+    public TextMeshPro DisplayScore;
+    public bool isHere(int col, int row)
     {
-
+        if (Current == null) return false;
+        Vector2Int[] Positions = Current.ActualPosition(Position);
+        Vector2Int Test = new Vector2Int(col, row);
+        foreach(Vector2Int given in Positions) if(Test == given) return true;
+        return false;
     }
-    public void setDrop(bool HighSpeed)
+    //Play Sound Based on Act Performed
+    public void playSound(Act Current)
+    {
+        //1.Assign current AudioClip to audiosource
+        SoundEffectPlayer.clip = SoundEffect[(int) Current];
+        //2.Play Audio
+        SoundEffectPlayer.Play();
+    }
+    //Play Game Music
+    public void playMusic()
+    {
+        MusicPlayer.loop = true;
+        MusicPlayer.clip = MusicFile; //1.Assign current AudioClip to audiosource
+        MusicPlayer.Play();//2.Play Audio
+    }    
+    //Set Drop Speed
+    public void setDropSpeed(bool HighSpeed)
     {
         dropSpeed = HighSpeed ? hyperSpeed : normalSpeed;
     }
-    public Vector2Int Position;
-    //TODO: *Create a method to check if a specific set of positions is available on the board
-    public bool isRotationAvailable()
+    //Check if a specific set of positions is available on the board
+    public bool CheckPosition(Vector2Int[] CurrentPosition)
     {
-        //Store the Current Rotation as output
-        Rotation output = CurrentRotation[i];
-        //Store the current equal to output + 1
-        Rotation current = CurrentRotation[i+1]
-        //If current is greater than three then set to zero
-        //While current does not equal output
-            Vector2Int[] Actual = Current.ActualPosition(Position, current);//Get the Actual Position of the Tetromino given a current rotation
-            //Check Each Position to see if it is available
-            //If available set output = to current
-            //Otherwise
-                //Increase Current
-                //If current is greater than three then set to zero
-        //return output
-        for(int i = 0; i < 4; i++)
+        //Loop through each position in the Positions Provided
+        foreach (Vector2Int given in CurrentPosition)                   
         {
-            if (Current.Rotation[CurrentRotation + 1].Placement[i] + ActualPosition(Position).x > 10 || Current.Rotation[CurrentRotation + 1].Placement[i] + ActualPosition.x < 0)
-            {
-                return false;
-            }
-            f(Current.Rotation[CurrentRotation + 1].Placement[i] + ActualPosition(Position).y > 20 || Current.Rotation[CurrentRotation + 1].Placement[i] + ActualPosition.x < 0)
-            {
-                return false;
-            }
+            if (Controller.GetValue(given.x, given.y, true) != 7) return false;
         }
         return true;
     }
-    //TODO: Can the tetromino go down
-<<<<<<< HEAD
+    //Send out the Available Rotation
+    public int isRotationAvailable()
+    {
+        if(Current == null) return 0;
+        //Store the Current Rotation as output
+        int output = Current.CurrentRotation;
+        //Store the current equal to output + 1
+        int current = output + 1;
+        //If current is greater than three then set to zero
+        if (current > 3) current = 0;
+        //While current does not equal output
+        while (current != output)
+        {
+            Vector2Int[] Actual = Current.ActualPosition(Position, current);//Get the Actual Position of the Tetromino given a current rotation
+            if (CheckPosition(Actual)) output = current;                    //If each position set output = to current
+            else//Otherwise
+            {
+                current++;//Increase Current
+                if (current > 3) current = 0;//If current is greater than three then set to zero
+            }
+        }
+        return output;//return output
+    }
+    //Check if the next position is available
     public bool isNextPositionAvailable()
-=======
-    public bool isNextPositionAvailable(Vector2Int Position)
->>>>>>> master
     {
         bool output = true;
         Vector2Int[] CurrentPosition = Current.NextPosition(Position);  //Find where the tetromino would actually be if moved down
-        foreach (Vector2Int given in CurrentPosition)                   //Loop through each position in the Positions Provided
-        {
-            if (Controller.TetrisGame.Board[given.x, given.y] != Position.Empty)
-            {
-                output = false;                                         //if any tetrmino block would be in a occupied position return false
-            }
-        }
+        output = CheckPosition(CurrentPosition);
         return output;                                                  //If none are occupied, return true
     }
-    //TODO: Create a means to Access the Board
-    public bool isPositionAvailable(int col, int row)
-    {
-        return Board[col, row].Equals(new Block());
-    }
-    //TODO: Move Left or Right - Indicate left or right
+    //Move Left or Right - Indicate left or right
     public void MoveSideWays(int direction)
     {
-        Position.x = Position.x + direction;
-        
+        if(Current == null) return;
+        //Determine the New Position
+        Vector2Int NewPosition = Position + Vector2Int.right * direction;
+        //Get What Positions Would be taken there
+        Vector2Int[] ActualPositions = Current.ActualPosition(NewPosition);
+        //If the Position is Available change position to new position
+        if (CheckPosition(ActualPositions))
+        {
+            Position = NewPosition;
+            playSound(Act.Shift);
+        }
     }
-    //TODO: Create a method to drop tetrominos every (preset) time
-    public IEnumerator Drop(int Dropspeed) //Move Tetromino down every (dropspeed) seconds
+    //Drop tetrominos every (preset) time
+    public IEnumerator Drop() //Move Tetromino down every (dropspeed) seconds
     {
         if(Current == null) //If I don't have a Tetromino
         {
-            CreateTetromino();                          //Make Sure New Tetromino Gets Created
+            CreateTetromino(); //Make Tetromino
         }
-        yield return new WaitForSeconds(Dropspeed);
-        if (isNextPositionAvailable()) GoDown(); 
-        else Land();
+        yield return new WaitForSeconds(dropSpeed); //Wait for Current Time Frame
+        GoDown();                                   //Go Down
+        yield return new WaitUntil(()=>Controller.isReady);
+        if (!Controller.TetrisGameOver) StartCoroutine(Drop()); //Repeat if Game is not over
     }
-    //TODO: Go Down - Move Tetromino to lower position
+    //Go Down
     public void GoDown()
     {
-        if(isNextPositionAvailable())
-        {
-            Position = new Vector2(Position.x, Position.y - 1);
-        }
+        if (Current == null) return;
+        //Determine the New Position
+        Vector2Int NewPosition = Position + Vector2Int.down;
+        //Get What Positions Would be taken there
+        Vector2Int[] ActualPositions = Current.ActualPosition(NewPosition);
+        if (dropSpeed == hyperSpeed) Score += 15; else Score += 5;
+        //If the Position is Available change position to new position
+        if (CheckPosition(ActualPositions)) Position = NewPosition;
+        else Land();
     }
-    //TODO: Landing Program - Execute Tetris Input on Game Controller for each Position on Tetromino
+    //Execute Tetris Input on Game Controller for each Position on Tetromino
     public void Land()
     {
-
+        Vector2Int[] ActualPosition = Current.ActualPosition(Position);
+        foreach (Vector2Int given in ActualPosition)
+        {
+            if (given.y >= 20)
+            {
+                Controller.TetrisGameOver = true;
+            }
+            else Controller.GetInput(given.x, given.y);
+        }
+        if (Controller.TetrisGameOver)
+        {
+            MusicPlayer.Stop();
+            playSound(Act.GameOver);
+            return;
+        }
+        playSound(Act.Land);
+        StartCoroutine(Controller.UpdateTetris());
+        int RowsDestroyed = Controller.TetrisGame.RowsDestroyed;
+        if (RowsDestroyed == 4)
+        {
+            playSound(Act.DestroyTetris);
+            Score += 1000;
+        }
+        else if (RowsDestroyed > 0)
+        {
+            playSound(Act.DestroyLine);
+            Score += 200 * RowsDestroyed;
+        }
+        int CurrentLevel = Level;
+        Level = Mathf.Clamp(Score / 5000, 0, 9);
+        if (Level > CurrentLevel) playSound(Act.LevelUp);
+        normalSpeed = normalSpeeds[Level];
+        Current = null;
     }
-    //TODO: Create the List of Tetrominos so we know which one is next
+    //Create the List of Tetrominos so we know which one is next
     public void CreateTetrominoList()
     {
-        for (int i = 0; i < 6; i++)//Repeat this process (x) number of times (four loop)
+        for (int i = 0; i < 7; i++)//Repeat this process (x) number of times (four loop)
         {
-            Random generator = new Random();                                         //Create Random Number Generator
-            TetrominoType currentTetromino = (TetrominoType)generator.Next(0, 7);    //Create a random number between zero and six as Tetromino
+            TetrominoType currentTetromino = (TetrominoType) Random.Range(0, 7);    //Create a random number between zero and six as Tetromino
             TetrominoList.Add(currentTetromino);                                     //Add it to the list
         }
     }
-            
-    }
-    //TODO: Create a Tetromino and place at the top to start falling
+    //Create a Tetromino and place at the top to start falling
     public void CreateTetromino()
     {
-        Random RNG = new Random();                              //Create A Random Number Generator
-        Position = new Vector2Int(5, 22);                       //Reset Position
-        Current = new Tetromino(TetrominoList[0]);              //Create a New Tetromino
-        TetrominoList().RemoveAt(0);                            //Remove the used tetromino type from the list
-        //Add to the list so it never ends
-        TetrominoType New = (TetrominoType) RNG.Next(0, 7);     //Make new tetromino type
-        TetrominoList().Add(New);                               //Replace the tetromino removed so the list never ends
+        Position = new Vector2Int(5, 22);                           //Reset Position
+        Current = new Tetromino(TetrominoList[0]);                  //Create a New Tetromino
+        TetrominoList.RemoveAt(0);                                  //Remove the used tetromino type from the list
+        TetrominoType New = (TetrominoType) Random.Range(0, 7);     //Make new tetromino type
+        TetrominoList.Add(New);                                     //Add to the list so it never ends
     }
-    //TODO: Write the Start Method
-    public void Start
+    //Write the Start Method
+    void Start()
     {
-        //Create the Tetromino List
-        //Start Drop Program
+        Controller = GetComponent<GameController>();
+        CreateTetrominoList();//Create the Tetromino List
+        StartCoroutine(Drop());//Start Drop Program
+        playMusic();
+        canDrop = true;
     }
-    //TODO: Create a method to lower that amount of time
-    public void ChangeTime()
+    
+    //Create a method to lower that amount of time
+    public IEnumerator SuperDrop()
     {
-        //Adjust the Variables for Time
-        Vector3 movement = new Vector3(h, 0, v).normalized * speed * Time.DeltaTime;
+        if (canDrop)
+        {
+            canDrop = false;
+            yield return new WaitForSeconds(hyperSpeed);
+            canDrop = true;
+        }
     }
-    //TODO: Create a method to take input
+    //Create a method to take input
     public void Update()
     {
+        if (Current == null) return;
         //Capture Input
-        if(input.OnKeyDown(KeyCode.LeftArrow)){
-            MoveSideWays('Left');
+        if(Input.GetKeyDown(KeyCode.LeftArrow)){
+            MoveSideWays(-1);
         }
-        if(input.OnKeyDown(KeyCode.DownArrow)){
-            GoDown();
+        if(Input.GetKey(KeyCode.DownArrow))
+        {
+            if(canDrop)
+            {
+                GoDown();
+                StartCoroutine(SuperDrop());
+            }
         }
-        if(input.OnKeyDown(KeyCode.RightArrow)){
-            MoveSideWays('Right');
+        else
+        {
+            setDropSpeed(false);
         }
-        if(input.OnKeyDown(KeyCode.UpArrow)){
-            Current.ChangeRotation()
+        if(Input.GetKeyDown(KeyCode.RightArrow)){
+            MoveSideWays(1);
         }
+        if(Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            int NewRotation = isRotationAvailable();
+            if(Current.CurrentRotation != NewRotation)
+            {
+                Current.ChangeRotation(NewRotation);
+                playSound(Act.Rotate);
+            }
+        }
+        DisplayScore.text = "Score\n" + Score.ToString();
     }
 }
 public class Tetromino
@@ -211,8 +261,8 @@ public class Tetromino
             case TetrominoType.ReverseL:
                 Spin1 = new Rotation(-1, 1, -1, 0, 1, 0, 0, 0);
                 Spin2 = new Rotation(0, 1, 0, -1, 1, 1, 0, 0);
-                Spin3 = new Rotation(0, 1, 0, -1, 1, -1, 0, 0);
-                Spin4 = new Rotation(-1, -1, -1, 0, 1, 0, 0, 0);
+                Spin3 = new Rotation(-1, 0, 1, 0, 1, -1, 0, 0);
+                Spin4 = new Rotation(-1, -1, 0, -1, 0, 1, 0, 0);
                 break;
             case TetrominoType.Z:
                 Spin1 = new Rotation(-1, 1, 0, 1, 1, 0, 0, 0);
@@ -221,16 +271,17 @@ public class Tetromino
                 Spin4 = new Rotation(-1, -1, -1, 0, 0, 1, 0, 0);
                 break;
             case TetrominoType.Square:
-                Spin1 = new Rotation(new Rotation(0, 0, 0, 1, 1, 0, 1, 1));
-                Spin2 = new Rotation(new Rotation(0, 0, 0, 1, 1, 0, 1, 1));
-                Spin3 = new Rotation(new Rotation(0, 0, 0, 1, 1, 0, 1, 1));
-                Spin4 = new Rotation(new Rotation(0, 0, 0, 1, 1, 0, 1, 1));
+                Spin1 = new Rotation(0, 0, 0, 1, 1, 0, 1, 1);
+                Spin2 = new Rotation(0, 0, 0, 1, 1, 0, 1, 1);
+                Spin3 = new Rotation(0, 0, 0, 1, 1, 0, 1, 1);
+                Spin4 = new Rotation(0, 0, 0, 1, 1, 0, 1, 1);
                 break;
             case TetrominoType.S:
                 Spin1 = new Rotation(1, 1, 0, 1, -1, 0, 0, 0);
                 Spin2 = new Rotation(0, 1, 1, -1, 1, 0, 0, 0);
                 Spin3 = new Rotation(-1, -1, 0, -1, 1, 0, 0, 0);
                 Spin4 = new Rotation(-1, 1, -1, 0, 0, -1, 0, 0);
+                break;
             case TetrominoType.T:
                 Spin1 = new Rotation(-1, 0, 1, 0, 0, 1, 0, 0);
                 Spin2 = new Rotation(0, 1, 0, -1, 1, 0, 0, 0);
@@ -254,7 +305,7 @@ public class Tetromino
         Vector2Int[] output = new Vector2Int[4];
         for (int i = 0; i < 4; i++)
         {
-            output[0] = Position + Rotations[CurrentRotation].Placement[i];
+            output[i] = Position + Rotations[CurrentRotation].Placement[i];
         }
         return output;
     }
@@ -264,7 +315,7 @@ public class Tetromino
         Vector2Int[] output = new Vector2Int[4];
         for (int i = 0; i < 4; i++)
         {
-            output[0] = Position + Rotations[rotation].Placement[i];
+            output[i] = Position + Rotations[rotation].Placement[i];
         }
         return output;
     }
@@ -272,7 +323,7 @@ public class Tetromino
     public Vector2Int[] NextPosition(Vector2Int Position)
     {
         Vector2Int[] CurrentPosition = ActualPosition(Position);
-        foreach (Vector2Int given in CurrentPosition) given.y--;
+        for (int i = 0; i < CurrentPosition.Length; i++) CurrentPosition[i].y--;
         return CurrentPosition;
     }
     //Change Rotation to Rotation Selected
@@ -285,7 +336,7 @@ public class Tetromino
 public class Rotation
 {
     public Vector2Int[] Placement;
-    public Rotation(params int placements)
+    public Rotation(params int[] placements)
     {
         Placement = new Vector2Int[4];
         int counter = 0;
@@ -297,8 +348,8 @@ public class Rotation
         }
     }
 }
-//To Be Deleted
-public enum TetrominoType
+//TODO: Create an Enumerator for the Actions that Can Occur
+public enum Act
 {
-    Line, T, L, ReverseL, S, Z, Square, Empty
+    Shift, Rotate, Land, DestroyLine, DestroyTetris, LevelUp, GameOver
 }

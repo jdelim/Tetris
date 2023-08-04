@@ -393,7 +393,8 @@ namespace BoardGames
     {
         #region Fields
         public Block[,] Board;
-        private int[] DestroyedRows;
+        public int[] DestroyedRows;
+        public int RowsDestroyed;
         #endregion
         #region Constructor
         public Tetris()
@@ -407,6 +408,8 @@ namespace BoardGames
                 }
             }
             DestroyedRows = new int[0];
+            Coordinate.x_limit = 10;
+            Coordinate.y_limit = 20;
         }
         #endregion
         #region Methods
@@ -433,13 +436,13 @@ namespace BoardGames
             {
                 if (!Board[i, row].isActive)
                 {
-                    return false
+                    return false;
                 }
             }
             return true;
         }
         //Method to Check Board for full lines
-        void CheckBoard()
+        public void CheckBoard()
         {
             List<int> ToBeDestroyed = new List<int>();
             for (int i = 0; i < 20; i++)
@@ -449,7 +452,16 @@ namespace BoardGames
                     ToBeDestroyed.Add(i);
                 }
             }
+            foreach (int given in ToBeDestroyed) PrepareForDestruction(given);
             DestroyedRows = ToBeDestroyed.ToArray();
+            RowsDestroyed = ToBeDestroyed.Count;
+        }
+        void PrepareForDestruction(int row)
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                Board[i, row].color = (TetrominoType)0;
+            }
         }
         #endregion
         #region Line Clear
@@ -462,7 +474,7 @@ namespace BoardGames
             }
         }
         //Clears all rows on destroy list
-        void AllClear()
+        public void AllClear()
         {
             for (int i = 0; i < DestroyedRows.Length; i++)
             {
@@ -476,14 +488,15 @@ namespace BoardGames
         {
             int fallcount = 0;
             foreach (int given in DestroyedRows) if (row > given) fallcount++;
+            if (fallcount == 0) return;
             for (int i = 0; i < 10; i++)
             {
-                Block[i, row - fallcount] = Block[i, row];
-                Block[i, row] = new Block();
+                Board[i, row - fallcount] = Board[i, row];      //Move the current row's contents down fallcount rows
+                Board[i, row] = new Block();                    //Destroy the current row
             }
         }
         //Method which updates the board
-        void UpdateBoard()
+        public void UpdateBoard()
         {
             for (int row = 0; row < 20; row++)
             {
